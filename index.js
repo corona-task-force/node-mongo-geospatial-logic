@@ -19,6 +19,10 @@ console.log(LAS, 'LAS', LAS.features[0].geometry)
 var SEA = require('./seattleColorado.json')
 console.log(SEA, 'SEA', SEA.features[0].geometry)
 
+var AUS = require('./austinCharlotte.json')
+console.log(AUS, 'AUS', AUS.features[0].geometry)
+
+
 
 // CMI.features[0].geometry.coordinates = [  CMI.features[0].geometry.coordinates]
 // BNO.features[0].geometry.coordinates = [  BNO.features[0].geometry.coordinates]
@@ -101,14 +105,13 @@ MongoClient.connect(url, function(err, db) {
 
 
 
-    //    dbo.collection('loc').insert({ "loc" :  SEA.features[0].geometry }).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+    //    dbo.collection('loc').insert({ "loc" :  AUS.features[0].geometry }).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
     // dbo.collection('loc').insert({ "loc" :  CMI.features[0].geometry }).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
 
     //  var poly1 = { "type" : "Polygon", "coordinates" : [[[0, 0], [3, 0], [0, 3], [0, 0]]] }
 
 
 
-    
 
     dbo.collection('loc').find().toArray(function(err, res){
         if( err ) throw err
@@ -120,7 +123,7 @@ MongoClient.connect(url, function(err, db) {
     // console.log(loc1)
      dbo.collection('loc').find({ "loc" : {
         "$geoIntersects" : {
-            "$geometry" : SEA.features[0].geometry
+            "$geometry" : BNO.features[0].geometry
         }   
     } }).toArray(function(err, result) {
         if (err) throw err

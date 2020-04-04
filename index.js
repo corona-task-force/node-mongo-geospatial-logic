@@ -108,6 +108,7 @@ MongoClient.connect(url, function(err, db) {
 
 
 
+    
 
     dbo.collection('loc').find().toArray(function(err, res){
         if( err ) throw err

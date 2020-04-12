@@ -83,74 +83,132 @@ MongoClient.connect(url, function(err, db) {
     
     
 
-
-    // dbo.collection('corona').find(
-    //     {
-    //       location:
-    //         { $near:
-    //            {
-    //              $geometry: { type: "Point",  coordinates: [ -73.9667, 40.78 ] },
-    //              $minDistance: 1000,
-    //              $maxDistance: 5000
-    //            }
-    //         }
-    //     }).toArray(function(err, result) {
-    //         if (err) throw err;
-    //         console.log(result)
-    //     })
-     
-    // dbo.collection('gbSmall').insertMany([
-
-    //     {"sentiment" : 0.631925,
-    //     "yyyy-mm" : "2012-9",
-    //     "lat_lon" : [
-    //         -2.0566385,
-    //         52.84265
-    //     ]}
-    // ])
+    let timeObject = new Date()
+    
 
 
-    // dbo.collection('gbSmall').findOne({
-    //     lat_lon: {
-    //         $geoIntersects: {
-    //             $geometry: {
-    //                 type: "LineString",
-    //                 coordinates: [[-2.0566385,52.84265],[-3.0566385,52.84265]]
-    //             }
-    //         }
-    //     }
-    // },function(error, result){
-    //     if( error ) throw error
-    //     console.log('gbSmall',result, '-=-=-=')
-    // })
+    function seedDb(){
 
-    let w = COL.features[0].geometry.coordinates.map(eachCoord => {
-        return {
-            name: `${COL.name} : ${JSON.stringify(eachCoord)}`,
-            location: { type: "Point", coordinates: eachCoord },
-            person: 'Niko'
-        }
-    })
+        let col = COL.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${COL.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'COL',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
 
-    let d = BOG.features[0].geometry.coordinates.map(eachCoord => {
-        return {
-            name: `${BOG.name} : ${JSON.stringify(eachCoord)}`,
-            location: { type: "Point", coordinates: eachCoord },
-            person: 'Sherwin'
-        }
-    })
+        let bog = BOG.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${BOG.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'BOG',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
 
-    //dbo.collection('loc').insert(w).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
-    //dbo.collection('loc').insert(d).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        let was = WAS.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${WAS.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'WAS',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
 
+        let del = DEL.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${DEL.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'DEL',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+
+
+
+
+        let bno = BNO.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${BNO.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'BNO',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+        let cmi = CMI.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${CMI.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'CMI',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+        let las = LAS.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${LAS.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'LAS',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+        let sea = SEA.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${SEA.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'SEA',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+        let aus = AUS.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${AUS.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'AUS',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+        let bsh = BSH.features[0].geometry.coordinates.map(eachCoord => {
+            return {
+                name: `${BSH.name} : ${JSON.stringify(eachCoord)}`,
+                location: { type: "Point", coordinates: eachCoord },
+                person: 'BSH',
+                date: timeObject.setTime(timeObject.getTime() + 1000 * 60)
+            }
+        })
+
+
+        dbo.collection('loc').drop()
+
+        
+
+        dbo.collection('loc').insert(was).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(del).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(col).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(bog).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(bno).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(cmi).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(las).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(sea).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(aus).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+        dbo.collection('loc').insert(bsh).then(res => console.log('panda',res)).catch(err=>console.log('iguana',err))
+
+        dbo.collection('loc').createIndex({location:"2dsphere"})
+    }
 
     
-    console.log(w,'w',d,'d')
+    // console.log(w,'w',d,'d')
 
     const promises = []
 
 
-    dbo.collection('loc').find({person:"Niko"}).toArray(function(err, result) {
+    dbo.collection('loc').find({person: { $ne :"CMI" } }).toArray(function(err, result) {
             if (err) throw err
             //console.log('geointerescts ',result.length,'-=-=-=-')
             result.forEach(function(spot){
@@ -158,7 +216,7 @@ MongoClient.connect(url, function(err, db) {
                  promises.push(
                     new Promise(resolve => {
                     dbo.collection('loc').find(
-                    { person: 'Sherwin',
+                    { person: 'CMI',
                       location:
                         { $near:
                            {
@@ -184,6 +242,13 @@ MongoClient.connect(url, function(err, db) {
             Promise.all(promises).then(res => {
                 console.log(res, 'lol')
                 const collisions = []
+                // let current = allCollisions[i].date
+                // let next = allCollisions[i].date;
+                // if(allCollisions[i+1]){
+                //     next = allCollisions[i+1].date
+                // }
+                // time += ( next - current )
+                // console.log(next > current)
                 res.forEach(r => {
                     if(r.length > 0){
                         console.log(r, 'yikes')
@@ -204,19 +269,29 @@ MongoClient.connect(url, function(err, db) {
 
 
     function foundCollisions(collisions){
-        let allCollisions = collisions.flat(Infinity)
+        let allCollisions = collisions.flat(Infinity).reverse()
         console.log(allCollisions)
         let newArr = []
-        allCollisions.forEach(c => { 
-            console.log(c.location.coordinates)
+        allCollisions.forEach((c,i) => { 
+
             newArr.push({lat:c.location.coordinates[1], lng:c.location.coordinates[0]})
         })
         console.log(newArr)
         var json = JSON.stringify(newArr);
-        fs.writeFile('myjsonfile.js', json, 'utf8', function(err,doc){console.log(err,doc)});
+        
+        
+        fs.writeFile('bno.js', json, 'utf8', function(err,doc){console.log(err,doc)});
 
     }
 
+
+    function millisToMinutesAndSeconds(millis) {
+        var minutes = Math.floor(millis / 60000);
+        var seconds = ((millis % 60000) / 1000).toFixed(0);
+        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+      }
+      
+      
 
     // dbo.collection('loc').find(
     //     {
@@ -397,3 +472,49 @@ MongoClient.connect(url, function(err, db) {
 });
 
 });
+
+
+
+
+
+
+
+    // dbo.collection('corona').find(
+    //     {
+    //       location:
+    //         { $near:
+    //            {
+    //              $geometry: { type: "Point",  coordinates: [ -73.9667, 40.78 ] },
+    //              $minDistance: 1000,
+    //              $maxDistance: 5000
+    //            }
+    //         }
+    //     }).toArray(function(err, result) {
+    //         if (err) throw err;
+    //         console.log(result)
+    //     })
+     
+    // dbo.collection('gbSmall').insertMany([
+
+    //     {"sentiment" : 0.631925,
+    //     "yyyy-mm" : "2012-9",
+    //     "lat_lon" : [
+    //         -2.0566385,
+    //         52.84265
+    //     ]}
+    // ])
+
+
+    // dbo.collection('gbSmall').findOne({
+    //     lat_lon: {
+    //         $geoIntersects: {
+    //             $geometry: {
+    //                 type: "LineString",
+    //                 coordinates: [[-2.0566385,52.84265],[-3.0566385,52.84265]]
+    //             }
+    //         }
+    //     }
+    // },function(error, result){
+    //     if( error ) throw error
+    //     console.log('gbSmall',result, '-=-=-=')
+    // })
